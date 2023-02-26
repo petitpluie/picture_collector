@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>图片采集器界面</title>
+    <style>
+        #popUpBox {
+            position:fixed;
+            top:0;
+            right:0;
+/*            width:40%;*/
+            z-index:1000;
+            width:650px;
+            height:750px;
+            border:1px solid red;
+            overflow-y:scroll;
+        }
+        #boxTitle {
+            width:100%;
+            height:40px;
+            background:grey;
+        }
+        #baseOptionPlace {
+            width:100%;
+            height:80px;
+            background:#E4E4E4;
+        }
+        #baseOptionCont {
+            float:left;
+            width:90%;
+            height:100%;
+            background:rgba(200,200,100,0.4);
+        }
+        .baseOption {
+            width:100%;
+            height:50%;
+            background:green;
+        }
+        .reqLinkTitle {
+            float:left;
+            width:10%;
+            height:100%;
+            background:orange;
+        }
+        .reqLinkCont {
+            float:left;
+            width:90%;
+            height:100%;
+            background:yellowgreen;
+        }
+        
+        
+        #baseOptionTitle {
+            float:right;
+            width:10%;
+            height:100%;
+            background:rgba(0,100,200,0.4);
+        }
+        
+
+        #boxOptionPlace {
+            width:100%;
+            background:#E4E4E4;
+        }
+        .boxOption {
+            width:100%;
+            height:120px;
+            margin-top:8px;
+            background:rgba(0,200,100,0.4);
+        }
+        .boxOptionCont {
+            float:left;
+            width:90%;
+            height:100%;
+            background:rgba(0,100,200,0.4);
+        }
+        .options {
+            width:100%;
+            height:33.3%;
+            
+            background:rgba(155,150,250,0.4);
+        }
+        .optionsTitle {
+            float:left;
+            width:10%;
+            height:100%;
+            line-height:40px;
+            background:orange;
+        }
+        .optionsCont {
+            float:right;
+            width:90%;
+            height:90%;
+            background:#E4E4E4;
+        }
+        .optionsContLeft {
+            float:left;
+            width:49.6%;
+            height:100%;
+            background:yellowgreen;
+        }
+        .optionsContName {
+            width:100%;
+            height:30%;
+            line-height:12px;
+            text-align: center;
+            background:green;
+        }
+        .optionsContInput {
+            width:100%;
+            height:70%;
+            background:yellowgreen;
+        }
+        .inputName {
+            width:28%;
+        }
+        .inputNumb {
+            width:12%;
+        }
+        .inputLink {
+            width:56%;
+        }
+        
+        .optionsContRight {
+            float:right;
+            width:49.6%;
+            height:100%;
+            background:skyblue;
+        }
+        
+        
+        .boxOptionTitle {
+            float:right;
+            width:10%;
+            height:100%;
+            background:rgba(10,100,100,0.4);
+        }
+        
+        #dealOptionPlace {
+            width:100%;
+            height:20px;
+            background:skyblue;
+        }
+        .dealBtn {
+            float:left;
+            width:30%;
+            height:100%;
+            background:pink;
+            margin-right:3%;
+        }
+        
+        
+        #showAllPicture {
+            width:100%;
+            height:10px;
+            background:purple;
+        }
+    </style>
+    <script>
+        window.onload=
+        function(){
+            var boxOptionPlace=document.getElementById('boxOptionPlace');
+            boxOptionPlace.n=0;
+            var boxOption=document.getElementsByClassName("boxOption");
+            var add=document.getElementById("add");
+            var redu=document.getElementById("redu");
+            add.onclick=function(){
+                var boxOptionTemp=document.createElement('div');
+                boxOptionTemp.className='boxOption';
+                boxOptionTemp.innerHTML=`
+                <div class="boxOptionCont">
+                    <div class="options">
+                        <div class="optionsTitle">parent</div>
+                        <div class="optionsCont parent">
+                            <div class="optionsContLeft">
+                                <div class="optionsContName">id</div>
+                                <div class="optionsContInput">
+                                    <span>name：</span><input class="inputName" name="id" type="text">
+                                </div>
+                            </div>
+                            <div class="optionsContRight">
+                                <div class="optionsContName">class</div>
+                                <div class="optionsContInput">
+                                    <span>name：</span><input class="inputName" name="class" type="text">
+                                    <span>index：</span><input class="inputNumb" name="index" type="number" min="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="options">
+                        <div class="optionsTitle">children</div>
+                        <div class="optionsCont children">
+                            <div class="optionsContLeft">
+                                <div class="optionsContName">tag</div>
+                                <div class="optionsContInput">
+                                    <span>name：</span><input class="inputName" name="tag" type="text">
+                                </div>
+                            </div>
+                            <div class="optionsContRight">
+                                <div class="optionsContName">class</div>
+                                <div class="optionsContInput">
+                                    <span>name：</span><input class="inputName" name="class" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="options">
+                        <div class="optionsTitle">flower</div>
+                        <div class="optionsCont flower">
+                            <div class="optionsContLeft">
+                                <div class="optionsContName">tag</div>
+                                <div class="optionsContInput">
+                                    <span>name：</span><input class="inputName" name="tag" type="text">
+                                    <span>index：</span><input class="inputNumb" name="index" type="number" min="0">
+                                </div>
+                            </div>
+                            <div class="optionsContRight">
+                                <div class="optionsContName">class</div>
+                                <div class="optionsContInput">
+                                    <span>name：</span><input class="inputName" name="class" type="text">
+                                    <span>index：</span><input class="inputNumb" name="index" type="number" min="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxOptionTitle">${++boxOptionPlace.n}级页面元素选择器</div>`;
+                boxOptionPlace.appendChild(boxOptionTemp);
+                                
+                
+                console.log(boxOptionPlace.n);
+            }
+            
+            redu.onclick=function(){
+                if(boxOptionPlace.n==0) return;
+                boxOptionPlace.removeChild(boxOption[--boxOptionPlace.n]);
+                console.log(boxOptionPlace.n);
+            }
+            
+            //3.输入数据处理
+            var start=document.getElementById('start');
+            //3.1父级选择器获取
+            var parent=document.getElementsByClassName('parent');
+            //3.2子级选择器获取
+            var children=document.getElementsByClassName('children');
+            //3.3flower选择器获取
+            var flower=document.getElementsByClassName('flower');
+            
+            //存放临时选择器数据的容器
+            var arrPCFselect=[[],[],[]];
+            
+            //存放最终选择器数据的容器
+            var arrSelector=[];
+            
+            start.onclick=function(){
+                //清空容器
+                arrPCFselect=[[],[],[]];
+                arrSelector=[];
+                
+                //存放临时选择器数据
+                for(var i=0;i<boxOptionPlace.n;i++){
+                    //父级选择器
+                    var prtInput=parent[i].getElementsByTagName('input');
+                    if(prtInput[0].value!=''){
+                        arrPCFselect[0].push('id___'+prtInput[0].value);
+                    } else if(prtInput[1].value!=''&&prtInput[2].value!='') {
+                        arrPCFselect[0].push('class___'+prtInput[1].value+'___'+prtInput[2].value);
+                    } else {
+                        alert(i+1+"级页面的父级选择器不能为空，请检查！");return;//让parent变红更好，break可去
+                    }
+                    
+                    //子级选择器
+                    var cldInput=children[i].getElementsByTagName('input');
+                    if(cldInput[0].value!=''){
+                        arrPCFselect[1].push('tag___'+cldInput[0].value);
+                    } else if(cldInput[1].value!='') {
+                        arrPCFselect[1].push('class___'+cldInput[1].value);
+                    } else {
+                        alert(i+1+"级页面的子级选择器不能为空，请检查！");return;
+                    }
+                    
+                    
+                    var flrInput=flower[i].getElementsByTagName('input');
+                    if(flrInput[0].value!=''&&flrInput[1].value!=''){
+                        arrPCFselect[2].push('tag___'+flrInput[0].value+'___'+flrInput[1].value);
+                    } else if(flrInput[2].value!=''&&flrInput[3].value!='') {
+                        arrPCFselect[2].push('class___'+flrInput[2].value+'___'+flrInput[3].value);
+                    } else {
+                        alert(i+1+"级页面的flower选择器不能为空，请检查！");return;
+                    }
+                    
+                    
+                }
+                //console.log("临时选择器数据如下：");
+                //console.log(JSON.stringify(arrPCFselect));
+                
+                //获取最终选择器数据
+                for(var i=0;i<boxOptionPlace.n;i++){
+                    var timerObj={
+                        parent:`${arrPCFselect[0][i]}`,
+                        children:`${arrPCFselect[1][i]}`,
+                        flower:`${arrPCFselect[2][i]}`
+                    }
+                    arrSelector.push(timerObj);
+                }
+                console.log("最终选择器结果如下：");
+                console.log(arrSelector);
+                if("当前没有其他采集任务"){
+                    console.log("执行采集任务");
+                }
+                
+            }
+            
+        }
+    </script>
+</head>
+<body>
+    <div id="popUpBox">
+        <div id="boxTitle">图片采集器（v.1.0.5）</div>
+        <div id="baseOptionPlace">
+            <div id="baseOptionCont">
+                
+                <div class="baseOption"><!--top-->
+                    <div class="reqLinkTitle">分页链接拆分</div>
+                    <div class="reqLinkCont">
+                        <span>索引前：</span><input class="inputLink" type="text">
+                        <span>索引后：</span><input class="inputNumb" type="text">
+                    </div>
+                </div>
+                <div class="baseOption"><!--down-->
+                    <div class="reqLinkTitle">采集分页范围</div>
+                    <div class="reqLinkCont">
+                        <span>开始索引：</span><input class="inputNumb" type="number" min="2">
+                        <span>结束索引：</span><input class="inputNumb" type="number" min="2">
+                    </div>
+                </div>
+                
+            </div>
+            <div id="baseOptionTitle">基本信息配置</div>
+        </div>
+        <div id="boxOptionPlace">
+            
+        </div>
+        <div id="dealOptionPlace">
+            <div id="start" class="dealBtn">开始采集</div>
+            <div id="add" class="dealBtn">选择器+</div>
+            <div id="redu" class="dealBtn">选择器-</div>
+        </div>
+        <div id="showAllPicture"></div>
+    </div>
+</body>
+</html>

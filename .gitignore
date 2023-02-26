@@ -1,0 +1,6 @@
+zone/*
+.vscode/*
+.git/*
+*.zip
+*.rar
+*.tar.gz
